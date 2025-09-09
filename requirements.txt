@@ -18,5 +18,5 @@ pytest
 pytest-cov
 
 # Apple Silicon Support (uncomment if using Mac with M chip)
-tensorflow-macos
-tensorflow-metal
+# tensorflow-macos
+# tensorflow-metal
