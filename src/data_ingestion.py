@@ -11,13 +11,7 @@ KAGGLE_DATASET_ID = "shubhamgoel27/dermnet"
 KAGGLE_DOWNLOAD_PATH = DATA_DIR / "dermnet-download"
 EXTRACTED_DATA_PATH = DATA_DIR / "dermnet"
 
-# --- CRITICAL: Set up Kaggle API credentials ---
-# This is the new, important part.
-if not KAGGLE_JSON_PATH.exists():
-    raise FileNotFoundError(
-        f"Kaggle API credentials not found at {KAGGLE_JSON_PATH}. "
-        "Please download your kaggle.json from your Kaggle account and place it in the project's root directory."
-    )
+
 
 # Before importing the kaggle library, we set the environment variable
 # to point to the directory containing our kaggle.json file.
@@ -38,6 +32,14 @@ def download_and_extract_data(dataset_id: str, download_path: Path, extract_path
         download_path (Path): The directory to save the downloaded zip file.
         extract_path (Path): The directory where the contents will be extracted.
     """
+    # --- CRITICAL: Set up Kaggle API credentials ---
+    # This is the new, important part.
+    if not KAGGLE_JSON_PATH.exists():
+        raise FileNotFoundError(
+            f"Kaggle API credentials not found at {KAGGLE_JSON_PATH}. "
+            "Please download your kaggle.json from your Kaggle account and place it in the project's root directory."
+        )
+    
     print("--- Starting Data Ingestion ---")
 
     # Ensure the download and extraction directories exist
