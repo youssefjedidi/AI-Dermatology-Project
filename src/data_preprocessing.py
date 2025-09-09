@@ -2,6 +2,10 @@
 import tensorflow as tf
 from src import config # Import our central configuration file
 
+def preprocess_image(image, label):
+    """Applies the Xception-specific normalization to an image."""
+    return tf.keras.applications.xception.preprocess_input(image), label
+
 def get_data_generators():
     """
     Creates and returns the training, validation, and test data generators.
@@ -43,6 +47,7 @@ def get_data_generators():
         shuffle=False, # It's critical not to shuffle the test set for consistent evaluation
         image_size=(config.IMAGE_SIZE, config.IMAGE_SIZE),
         batch_size=config.BATCH_SIZE,
+        interpolation='bilinear', # Explicitly set to match standard practice.
         label_mode='int'
     )
 
@@ -57,9 +62,6 @@ def get_data_generators():
         tf.keras.layers.RandomZoom(0.2),
     ], name="data_augmentation")
 
-    def preprocess_image(image, label):
-        """Applies the Xception-specific normalization to an image."""
-        return tf.keras.applications.xception.preprocess_input(image), label
 
     # --- Apply Transformations to the Datasets ---
 

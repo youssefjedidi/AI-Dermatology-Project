@@ -16,6 +16,8 @@ EXTRACTED_DATA_PATH = DATA_DIR / "dermnet" # Where the 'train' and 'test' folder
 
 # --- Data Preprocessing & Model Parameters ---
 IMAGE_SIZE = 299
+IMG_WIDTH = 299
+IMG_HEIGHT = 299
 BATCH_SIZE = 32
 NUM_CLASSES = 23
 VALIDATION_SPLIT = 0.2 # 20% of the training data will be used for validation
@@ -28,5 +30,6 @@ FINETUNE_LEARNING_RATE = 0.00005
 
 # --- Model Naming ---
 INITIAL_MODEL_NAME = f"initial_model_epochs_{INITIAL_TRAINING_EPOCHS}.keras"
-FINETUNED_MODEL_NAME = f"finetuned_model_epochs_{FINETUNE_EPOCHS}.keras"
+# FINETUNED_MODEL_NAME = f"finetuned_model_epochs_{FINETUNE_EPOCHS}.keras"
+FINETUNED_MODEL_NAME = "h62_Xc_model.h5" 
 QUANTIZED_MODEL_NAME = "quantized_dynamic_range_model.tflite"
