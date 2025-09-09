@@ -1,0 +1,22 @@
+# Python bytecode and cache
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Large Data Files - DO NOT COMMIT
+data/
+models/
+
+# Kaggle API credentials - DO NOT COMMIT
+kaggle.json
+
+# IDE and OS specific
+.vscode/
+.idea/
+.DS_Store
