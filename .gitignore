@@ -20,3 +20,8 @@ kaggle.json
 .vscode/
 .idea/
 .DS_Store
+
+# Python build artifacts - DO NOT COMMIT
+*.egg-info/
+build/
+dist/
