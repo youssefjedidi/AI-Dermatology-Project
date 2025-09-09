@@ -26,6 +26,12 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
 
+    # --- ENVIRONMENT VARIABLES FOR KAGGLE ---
+    # Set Kaggle credentials as environment variables for the entire job
+    env:
+      KAGGLE_USERNAME: test_user
+      KAGGLE_KEY: fake_key_for_testing
+
     # --- STEPS ---
     # A sequence of tasks that will be executed as part of the job.
     steps:
@@ -57,7 +63,18 @@ jobs:
           pip install -r requirements.txt
           pip install flake8 pytest # Ensure testing tools are installed
 
-      # Step 5: Lint the code with flake8 to check for style issues and simple errors.
+      # Step 5: Set up fake Kaggle credentials for testing
+      # This prevents authentication errors when importing the data_ingestion module
+      - name: Set up Kaggle credentials for testing
+        run: |
+          # Create kaggle.json in project root (where your code expects it)
+          echo '{"username":"test_user","key":"fake_key_for_testing"}' > kaggle.json
+          # Also create in ~/.kaggle/ directory (standard Kaggle location)
+          mkdir -p ~/.kaggle
+          echo '{"username":"test_user","key":"fake_key_for_testing"}' > ~/.kaggle/kaggle.json
+          chmod 600 ~/.kaggle/kaggle.json
+
+      # Step 6: Lint the code with flake8 to check for style issues and simple errors.
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
@@ -65,7 +82,7 @@ jobs:
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      # Step 6: Run the tests with pytest.
+      # Step 7: Run the tests with pytest.
       # Your pytest.ini already configures coverage, so the command is simple.
       - name: Run tests with pytest
         run: |
