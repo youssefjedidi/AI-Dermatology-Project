@@ -84,6 +84,9 @@ AI-Dermatology-Project/
 2.  **Create and Activate a Virtual Environment**
 
     ```bash
+    # Remove any existing venv if it's corrupted
+    rm -rf venv
+    
     python3 -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
@@ -121,18 +124,18 @@ You can also run the key stages of the pipeline independently, assuming the prev
   _(Requires a `.weights.h5` file in the `models/` directory)_
 
   ```bash
-  python src/evaluate.py
+  PYTHONPATH="$(pwd):$PYTHONPATH" python src/evaluate.py
   ```
 
 - **Quantize the final model to TFLite:**
   _(Requires a `.weights.h5` file in the `models/` directory)_
   ```bash
-  python src/quantization.py
+  PYTHONPATH="$(pwd):$PYTHONPATH" python src/quantization.py
   ```
 - **Predict a single image:**
   _(Requires a `.tflite` file in the `models/` directory)_
   ```bash
-  python src/predict.py
+  PYTHONPATH="$(pwd):$PYTHONPATH" python src/predict.py
   ```
   _(Note: You must edit the `image_to_predict` variable inside the file.)_
 
@@ -167,7 +170,7 @@ This project emphasizes code quality and reliability through a comprehensive tes
 
 - **Run all tests:**
   ```bash
-  pytest
+  PYTHONPATH="$(pwd):$PYTHONPATH" pytest
   ```
 
 The CI pipeline in `.github/workflows/main.yml` automates this process, running all tests on every push to ensure that new changes don't break existing functionality.
